@@ -9,7 +9,7 @@
         </el-checkbox-group>
       </el-form-item>
       <!-- 地区 -->
-      <districts :wareHousePro="provinceList"></districts>
+      <districts :wareHousePro="provinceList" :wareHouseFlag="wareHouseFlag"></districts>
     </el-form>
   </main>
 </template>
@@ -25,6 +25,7 @@ export default {
       warehouse: [], // 仓库
 
       provinceList: [], // 仓库对应的省id
+      wareHouseFlag: false, // 分仓的省id加载完毕的标志
       warehousesList: [ // 仓库信息
         {
           'key': 'NH',
@@ -78,9 +79,11 @@ export default {
       this.warehouseObj = this.warehousesList; // 选中的仓库对象
       this.warehouse = this.warehousesList.map(val => val.key); // 选中的仓库id
 
-      let proArray = this.warehousesList.map(val => val.province); // 所选中的省id的数组
-      for (let val of proArray) {
-        this.provinceList = this.provinceList.concat(val); // 合并成一个数组
+      this.wareHouseFlag = true; // 加载完毕
+      // this.warehousesList 数组：[{key:'', province:[],},...]
+      for (let val of this.warehousesList) {
+        // 每个数组元素去空格后合并成一个数组
+        this.provinceList = this.provinceList.concat(val['province'].map(vq => vq.trim()));
       }
     },
     // 点击某个仓库，对应地区联动选择，value - 已选择的仓库对象
@@ -88,9 +91,10 @@ export default {
       this.warehouse = value.map(val => val.key);
       // 先清空
       this.provinceList = [];
-      let proArray = value.map(val => val.province); // 所选中的省id的数组
-      for (let val of proArray) {
-        this.provinceList = this.provinceList.concat(val); // 合并成一个数组
+      // value 数组：[{key:'', province:[],},...]
+      for (let val of value) {
+        // 每个数组元素去空格后合并成一个数组
+        this.provinceList = this.provinceList.concat(val['province'].map(vq => vq.trim()));
       }
     },
   },

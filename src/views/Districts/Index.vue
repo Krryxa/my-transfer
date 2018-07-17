@@ -18,6 +18,9 @@ export default {
     wareHousePro: { // 分仓对应的省id
       type: Array,
     },
+    wareHouseFlag: {
+      type: Boolean,
+    },
   },
   data () {
     return {
@@ -134,7 +137,10 @@ export default {
   watch: {
     // 监听点击分仓，所自动勾选的省
     wareHousePro (newVal, oldVal) {
-      this.watchWarehouse(newVal, oldVal);
+      // 当区域数据和分仓数据加载后才能解锁
+      if (this.flag && this.wareHouseFlag) {
+        this.watchWarehouse(newVal, oldVal);
+      }
     },
   },
   created () {
@@ -144,7 +150,11 @@ export default {
     // 获取区域数据
     async getDistrict () {
       // 从后台传回经过处理的数据
-      this.watchWarehouse(this.wareHousePro, []); // 执行一次分仓与区域选择的联动
+      this.flag = true; // 数据加载完成，解锁
+      // 当分仓数据加载后才能解锁
+      if (this.wareHouseFlag) {
+        this.watchWarehouse(this.wareHousePro, []); // 执行一次分仓与区域选择的联动
+      }
       this.getProvince();
     },
     // 分仓对应的省id的监听器方法
