@@ -11,6 +11,7 @@
       <!-- 地区 -->
       <districts :wareHousePro="provinceList" :wareHouseFlag="wareHouseFlag"></districts>
     </el-form>
+    <router-link to="/mutiTransfer">前往 --> 数据量庞大的分页穿梭框</router-link>
   </main>
 </template>
 
@@ -20,7 +21,7 @@ import Districts from './Districts';
 export default {
   data () {
     return {
-      title: '更多设置',
+      title: '省市级联动多选穿梭框',
       warehouseObj: [], // 选中的仓库对象
       warehouse: [], // 仓库
 
@@ -31,8 +32,7 @@ export default {
           'key': 'NH',
           'name': '南海',
           'province': [ // 该仓库对应的省的id值
-            '101101',
-            '101102',
+            '101112',
           ],
         },
         {
@@ -45,9 +45,9 @@ export default {
         },
         {
           'key': 'CD',
-          'name': '成都',
+          'name': '华南',
           'province': [
-            '101103',
+            '101110',
           ],
         },
         {

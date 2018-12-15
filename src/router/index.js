@@ -12,7 +12,12 @@ export default new Router({
     {
       path: '/index',
       name: 'index',
-      component: () => import('@/views'),
+      component: () => import('@/views/MutiDistricts'),
+    },
+    {
+      path: '/mutiTransfer',
+      name: 'index',
+      component: () => import('@/views/MutiTransfer'),
     },
   ],
 });
