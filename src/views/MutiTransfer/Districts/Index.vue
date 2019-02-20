@@ -24,7 +24,28 @@ export default {
   data () {
     return {
       dataList: [], // 未选中（已过滤出已选)的数据
-      selectList: [], // 已选中的数据，传递到子组件的数据
+      selectList: [
+        {
+          id: 0,
+          name: '这是第0条数据',
+        },
+        {
+          id: 5,
+          name: '这是第5条数据',
+        },
+        {
+          id: 6,
+          name: '这是第6条数据',
+        },
+        {
+          id: 8,
+          name: '这是第8条数据',
+        },
+        {
+          id: 9,
+          name: '这是第9条数据',
+        },
+      ], // 已选中的数据，传递到子组件的数据
 
       dataListNoCheck: [], // 未选中的（或已搜索）传递到子组件的数据
       selectListCheck: [], // 已选中的（或已搜索）传递到子组件的数据
@@ -41,10 +62,19 @@ export default {
   created () {
     this.getDistrict();
   },
+  computed: {
+    // 传递到后台保存的数据（已选中的数据的 id 数组）
+    selectIdList () {
+      return this.selectList.map(item => item.id);
+    },
+  },
   methods: {
-    // 分页数据
+    // 分页数据，初始化数据
     getDistrict () {
-      this.dataList = this.data;
+      this.selectListCheck = this.selectList;
+      this.dataList = this.data.filter(item1 => {
+        return this.selectListCheck.every(item2 => item2.id !== item1.id);
+      });
       this.dataListNoCheck = this.dataList;
     },
     searchWord (keyword, titleId) {
@@ -82,10 +112,10 @@ export default {
         ...this.checkData,
       ];
       this.dataList = this.data.filter(item1 => {
-        return dataFilter.every(item2 => item2 !== item1);
+        return dataFilter.every(item2 => item2.id !== item1.id);
       });
       this.selectList = this.data.filter(item1 => {
-        return this.dataList.every(item2 => item2 !== item1);
+        return this.dataList.every(item2 => item2.id !== item1.id);
       });
       // 搜索一次
       this.searchWord(this.noSelectkeyword, 0);
@@ -98,10 +128,10 @@ export default {
         ...this.checkData,
       ];
       this.selectList = this.data.filter(item1 => {
-        return dataFilter.every(item2 => item2 !== item1);
+        return dataFilter.every(item2 => item2.id !== item1.id);
       });
       this.dataList = this.data.filter(item1 => {
-        return this.selectList.every(item2 => item2 !== item1);
+        return this.selectList.every(item2 => item2.id !== item1.id);
       });
       // 搜索一次
       this.searchWord(this.noSelectkeyword, 0);
