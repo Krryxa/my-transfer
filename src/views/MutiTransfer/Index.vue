@@ -3,8 +3,11 @@
     <h1>{{ title }}</h1>
     <el-form>
       <!-- 地区 -->
-      <districts :data="data"></districts>
+      <districts :data="data" ref="districts"></districts>
     </el-form>
+    <div class="btn">
+      <el-button type="primary" @click="submit">提交</el-button>
+    </div>
     <router-link to="/index">前往 --> 省市级联动多选穿梭框</router-link>
   </main>
 </template>
@@ -31,6 +34,11 @@ export default {
         });
       }
     },
+    submit () {
+      this.$alert(`已选中的数据 id：${this.$refs.districts.selectIdList}`, '保存提交', {
+        confirmButtonText: '确定',
+      });
+    },
   },
   components: {
     Districts,
@@ -44,5 +52,9 @@ export default {
   width: 1000px;
   height: auto;
   margin: 0 auto;
+
+  .btn {
+    margin-left: 315px;
+  }
 }
 </style>

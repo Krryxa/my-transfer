@@ -1,12 +1,12 @@
 <template>
   <div>
     <el-form-item label="渠道：">
-      <transfer ref="noSelect" :titleId="0" :district-list="dataListNoCheck" @check-district="checkSelect" @search-word="searchWord" @check-disable="checkDisable"></transfer>
+      <transfer ref="noSelect" :titleId="0" :district-list="dataListNoCheck" @check-district="noCheckSelect" @search-word="searchWord" @check-disable="checkDisable"></transfer>
       <div class="opera">
         <el-button icon="el-icon-arrow-left"  type="primary" circle @click="deleteData" :disabled="disablePre"></el-button>
         <el-button icon="el-icon-arrow-right" type="primary" circle @click="addData" :disabled="disableNex"></el-button>
       </div>
-      <transfer ref="hasSelect" :titleId="1" :district-list="selectListCheck" @check-district="checkSelect" @search-word="searchWord" @check-disable="checkDisable"></transfer>
+      <transfer ref="hasSelect" :titleId="1" :district-list="selectListCheck" @check-district="hasCheckSelect" @search-word="searchWord" @check-disable="checkDisable"></transfer>
     </el-form-item>
   </div>
 </template>
@@ -24,6 +24,7 @@ export default {
   data () {
     return {
       dataList: [], // 未选中（已过滤出已选)的数据
+      // 默认已选的数据
       selectList: [
         {
           id: 0,
@@ -50,7 +51,8 @@ export default {
       dataListNoCheck: [], // 未选中的（或已搜索）传递到子组件的数据
       selectListCheck: [], // 已选中的（或已搜索）传递到子组件的数据
 
-      checkData: [], // 已勾选的数据（待添加或删除数据)
+      noCheckData: [], // 未选中区域的已勾选的数据（待添加到已选区域)
+      hasCheckData: [], // 已选中区域的已勾选的数据（从未选区域中待删除)
 
       noSelectkeyword: '',
       haSelectkeyword: '',
@@ -100,16 +102,20 @@ export default {
         data.length > 0 ? (this.disablePre = false) : (this.disablePre = true);
       }
     },
-    // 选择
-    checkSelect (val) {
-      this.checkData = val;
+    // 未选中区域的选泽
+    noCheckSelect (val) {
+      this.noCheckData = val;
+    },
+    // 已选中区域的选泽
+    hasCheckSelect (val) {
+      this.hasCheckData = val;
     },
     // 关键：把未选择的数据当做已选择的过滤数组，把已选择的数据当做未选择的过滤数组，在全局data进行过滤，最后进行一次搜索
     // 添加至已选
     addData () {
       let dataFilter = [
         ...this.selectList,
-        ...this.checkData,
+        ...this.noCheckData,
       ];
       this.dataList = this.data.filter(item1 => {
         return dataFilter.every(item2 => item2.id !== item1.id);
@@ -125,7 +131,7 @@ export default {
     deleteData () {
       let dataFilter = [
         ...this.dataList,
-        ...this.checkData,
+        ...this.hasCheckData,
       ];
       this.selectList = this.data.filter(item1 => {
         return dataFilter.every(item2 => item2.id !== item1.id);
