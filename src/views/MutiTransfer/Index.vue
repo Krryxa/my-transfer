@@ -6,7 +6,7 @@
       <districts :data="data" ref="districts"></districts>
     </el-form>
     <div class="btn">
-      <el-button type="primary" @click="submit">提交</el-button>
+      <el-button type="primary" @click="submit">保存提交</el-button>
     </div>
     <router-link to="/index">前往 --> 省市级联动多选穿梭框</router-link>
   </main>
