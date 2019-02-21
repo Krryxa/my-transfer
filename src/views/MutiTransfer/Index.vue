@@ -54,7 +54,7 @@ export default {
   margin: 0 auto;
 
   .btn {
-    margin-left: 315px;
+    margin-left: 298px;
   }
 }
 </style>
