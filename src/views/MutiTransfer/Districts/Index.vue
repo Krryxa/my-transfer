@@ -113,28 +113,23 @@ export default {
     // 关键：把未选择的数据当做已选择的过滤数组，把已选择的数据当做未选择的过滤数组，在全局data进行过滤，最后进行一次搜索
     // 添加至已选
     addData () {
-      let dataFilter = [
-        ...this.selectList,
-        ...this.noCheckData,
-      ];
-      this.dataList = this.data.filter(item1 => {
-        return dataFilter.every(item2 => item2.id !== item1.id);
+      this.dataList = this.dataList.filter(item1 => {
+        return this.noCheckData.every(item2 => item2.id !== item1.id);
       });
+      // 为了排序，选择这种复杂方法，从固定不变的所有数据 data 中过滤，顺序就不会乱
       this.selectList = this.data.filter(item1 => {
         return this.dataList.every(item2 => item2.id !== item1.id);
       });
+      // 为了排序，舍弃这种效率更高的方法，从而选择上面那种方式
+      // this.selectList = Array.from(dataFilter);
       // 搜索一次
       this.searchWord(this.noSelectkeyword, 0);
       this.searchWord(this.haSelectkeyword, 1);
     },
     // 从已选中删除
     deleteData () {
-      let dataFilter = [
-        ...this.dataList,
-        ...this.hasCheckData,
-      ];
-      this.selectList = this.data.filter(item1 => {
-        return dataFilter.every(item2 => item2.id !== item1.id);
+      this.selectList = this.selectList.filter(item1 => {
+        return this.hasCheckData.every(item2 => item2.id !== item1.id);
       });
       this.dataList = this.data.filter(item1 => {
         return this.selectList.every(item2 => item2.id !== item1.id);
