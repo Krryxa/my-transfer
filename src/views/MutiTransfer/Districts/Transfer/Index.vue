@@ -1,16 +1,37 @@
 <template>
   <div class="el-transfer-panel district-panel">
     <div class="el-transfer-panel__header">
-      <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">{{title[titleId]}}</el-checkbox>
+      <el-checkbox
+        :indeterminate="isIndeterminate"
+        v-model="checkAll"
+        @change="handleCheckAllChange"
+      >{{title[titleId]}}</el-checkbox>
       <span class="check-number">{{checkedCities.length}}/{{districtListMock.length}}</span>
     </div>
     <div class="el-transfer-panel__body">
       <div class="el-transfer-panel__filter el-input el-input--small el-input--prefix">
-        <input type="text" v-model="searchWord" autocomplete="off" placeholder="请输入(在全局中搜索)" class="el-input__inner">
-        <span class="el-input__prefix"><i class="el-input__icon el-icon-search"></i></span>
+        <input
+          type="text"
+          v-model="searchWord"
+          autocomplete="off"
+          placeholder="请输入(在全局中搜索)"
+          class="el-input__inner"
+        />
+        <span class="el-input__prefix">
+          <i class="el-input__icon el-icon-search"></i>
+        </span>
       </div>
-      <el-checkbox-group v-model="checkedCities" v-if="districtListMock.length > 0" @change="handleCheckedChange">
-        <el-checkbox v-for="item in districtListMock" class="el-transfer-panel__item" :label="item" :key="item.id">{{item.name}}</el-checkbox>
+      <el-checkbox-group
+        v-model="checkedCities"
+        v-if="districtListMock.length > 0"
+        @change="handleCheckedChange"
+      >
+        <el-checkbox
+          v-for="item in districtListMock"
+          class="el-transfer-panel__item"
+          :label="item"
+          :key="item.id"
+        >{{item.name}}</el-checkbox>
       </el-checkbox-group>
       <p class="no-data" v-else>无数据</p>
     </div>
@@ -22,17 +43,17 @@
 </template>
 
 <script>
-
 export default {
   props: {
     titleId: {
-      type: Number,
+      type: Number
     },
-    districtList: { // 父组件传递的数据
-      type: Array,
-    },
+    districtList: {
+      // 父组件传递的数据
+      type: Array
+    }
   },
-  data () {
+  data() {
     return {
       title: ['渠道', '已选中'],
       districtListMock: [], // 展示的数据 （搜索和分页会自动修改这个数组）
@@ -44,82 +65,90 @@ export default {
       total: 0,
       pageIndex: 0,
       disabledPre: true,
-      disabledNex: false,
-    };
+      disabledNex: false
+    }
   },
-  created () {
-    this.getDistrict();
+  created() {
+    this.getDistrict()
   },
   watch: {
     // 搜索框的监听器
-    searchWord (newWord) {
-      this.$emit('search-word', newWord, this.titleId);
+    searchWord(newWord) {
+      this.$emit('search-word', newWord, this.titleId)
     },
     // districtListMock 和 checkAll 的监听器
-    districtListMock () {
+    districtListMock() {
       // 当方框中无已选择的数据时，不能勾选checkBox
       if (this.checkedCities.length === 0) {
-        this.checkAll = false;
-        this.isIndeterminate = false;
+        this.checkAll = false
+        this.isIndeterminate = false
       }
     },
-    checkedCities (newWord) {
-      this.$emit('check-disable', newWord, this.titleId);
+    checkedCities(newWord) {
+      this.$emit('check-disable', newWord, this.titleId)
     },
     // 当列表中无数据时，不能勾选checkBox
-    checkAll () {
-      this.checkAll = this.districtListMock.length === 0 ? false : this.checkAll;
-    },
+    checkAll() {
+      this.checkAll = this.districtListMock.length === 0 ? false : this.checkAll
+    }
   },
   methods: {
     // 分页数据
-    getDistrict () {
-      this.len = this.districtList.length;
-      this.total = Math.ceil(this.len / 200);
-      this.pageIndex = 0;
-      this.pageData();
+    getDistrict() {
+      this.len = this.districtList.length
+      this.total = Math.ceil(this.len / 200)
+      this.pageIndex = 0
+      this.pageData()
     },
-    pageData () {
-      this.checkedCities = [];
-      if (this.total > 1 && this.pageIndex < (this.total - 1)) {
-        this.pageIndex === 0 ? this.disabledPre = true : this.disabledPre = false;
-        this.disabledNex = false;
-        this.districtListMock = this.districtList.slice(this.pageIndex * 200, this.pageIndex * 200 + 200);
+    pageData() {
+      this.checkedCities = []
+      if (this.total > 1 && this.pageIndex < this.total - 1) {
+        this.pageIndex === 0
+          ? (this.disabledPre = true)
+          : (this.disabledPre = false)
+        this.disabledNex = false
+        this.districtListMock = this.districtList.slice(
+          this.pageIndex * 200,
+          this.pageIndex * 200 + 200
+        )
       } else {
-        this.total > 1 ? this.disabledPre = false : this.disabledPre = true;
-        this.disabledNex = true;
-        this.districtListMock = this.districtList.slice(this.pageIndex * 200, this.len);
+        this.total > 1 ? (this.disabledPre = false) : (this.disabledPre = true)
+        this.disabledNex = true
+        this.districtListMock = this.districtList.slice(
+          this.pageIndex * 200,
+          this.len
+        )
       }
     },
     // 上一页
-    prev () {
-      this.pageIndex > 0 && --this.pageIndex;
-      this.pageData();
+    prev() {
+      this.pageIndex > 0 && --this.pageIndex
+      this.pageData()
     },
     // 下一页
-    next () {
-      this.pageIndex <= (this.total - 1) && ++this.pageIndex;
-      this.pageData();
+    next() {
+      this.pageIndex <= this.total - 1 && ++this.pageIndex
+      this.pageData()
     },
     // 单选
-    handleCheckedChange (value) {
-      let checkedCount = value.length;
-      this.checkAll = checkedCount === this.districtListMock.length;
-      this.isIndeterminate = checkedCount > 0 && checkedCount < this.districtListMock.length;
+    handleCheckedChange(value) {
+      let checkedCount = value.length
+      this.checkAll = checkedCount === this.districtListMock.length
+      this.isIndeterminate =
+        checkedCount > 0 && checkedCount < this.districtListMock.length
       // 子传父
-      this.$emit('check-district', value);
+      this.$emit('check-district', value)
     },
     // 全选
-    handleCheckAllChange (val) {
-      this.checkedCities = val ? this.districtListMock.map(val => val) : [];
-      this.isIndeterminate = false;
+    handleCheckAllChange(val) {
+      this.checkedCities = val ? this.districtListMock.map(val => val) : []
+      this.isIndeterminate = false
       // 子传父
-      this.$emit('check-district', this.checkedCities);
-    },
+      this.$emit('check-district', this.checkedCities)
+    }
   },
-  components: {
-  },
-};
+  components: {}
+}
 </script>
 
 <style lang="scss" scoped>

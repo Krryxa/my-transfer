@@ -13,37 +13,41 @@
 </template>
 
 <script>
-import Districts from './Districts';
+import Districts from './Districts'
 
 export default {
-  data () {
+  data() {
     return {
       title: '数据量庞大的分页穿梭框',
-      data: [],
-    };
+      data: []
+    }
   },
-  created () {
-    this.getData();
+  created() {
+    this.getData()
   },
   methods: {
-    getData () {
+    getData() {
       for (let i = 0; i < 2234; i++) {
         this.data.push({
           id: i,
-          name: `这是第${i}条数据`,
-        });
+          name: `这是第${i}条数据`
+        })
       }
     },
-    submit () {
-      this.$alert(`已选中的数据 id：${this.$refs.districts.selectIdList}`, '保存提交', {
-        confirmButtonText: '确定',
-      });
-    },
+    submit() {
+      this.$alert(
+        `已选中的数据 id：${this.$refs.districts.selectIdList}`,
+        '保存提交',
+        {
+          confirmButtonText: '确定'
+        }
+      )
+    }
   },
   components: {
-    Districts,
-  },
-};
+    Districts
+  }
+}
 </script>
 
 <style lang="scss" scoped>
