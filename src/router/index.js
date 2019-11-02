@@ -16,7 +16,7 @@ export default new Router({
     },
     {
       path: '/mutiTransfer',
-      name: 'index',
+      name: 'index2',
       component: () => import('@/views/MutiTransfer')
     }
   ]

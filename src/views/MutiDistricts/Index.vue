@@ -4,7 +4,7 @@
     <el-form>
       <!-- 仓库 -->
       <el-form-item label="地域：">
-        <krry-transfer :dataObj="dataObj" :selectedData="selectedData"></krry-transfer>
+        <kr-cascader :dataObj="dataObj" :selectedData="selectedData"></kr-cascader>
       </el-form-item>
     </el-form>
     <router-link to="/mutiTransfer">前往 --> 数据量庞大的分页穿梭框</router-link>

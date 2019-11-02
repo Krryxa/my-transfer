@@ -4,12 +4,14 @@ import Vue from 'vue'
 import ElementUI from 'element-ui'
 import App from './App'
 import router from './router'
-import krryTransfer from 'krry-transfer'
+import { krryCascader, krryPaging } from 'krry-transfer'
+
+Vue.use(krryCascader)
+Vue.use(krryPaging)
 
 Vue.config.productionTip = false
 
 Vue.use(ElementUI)
-Vue.use(krryTransfer)
 
 /* eslint-disable no-new */
 new Vue({
