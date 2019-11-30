@@ -3,7 +3,7 @@
     <h1>{{ title }}</h1>
     <el-form>
       <el-form-item label="渠道：">
-        <kr-paging :dataList="data" :selectedData="selectedData" :pageSize="100"></kr-paging>
+        <kr-paging :dataList="data" :selectedData="selectedData" @onChange="onChange" :pageSize="100"></kr-paging>
       </el-form-item>
     </el-form>
     <router-link to="/index">前往 --> 省市级联动多选穿梭框</router-link>
@@ -30,6 +30,9 @@ export default {
           label: `这是第${i}条数据`
         })
       }
+    },
+    onChange(val) {
+      console.log('已选中：', val)
     }
   }
 }

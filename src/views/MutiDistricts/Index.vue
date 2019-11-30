@@ -4,7 +4,7 @@
     <el-form>
       <!-- 仓库 -->
       <el-form-item label="地域：">
-        <kr-cascader :dataObj="dataObj" :selectedData="selectedData"></kr-cascader>
+        <kr-cascader :dataObj="dataObj" :selectedData="selectedData" @onChange="onChange"></kr-cascader>
       </el-form-item>
     </el-form>
     <router-link to="/mutiTransfer">前往 --> 数据量庞大的分页穿梭框</router-link>
@@ -121,7 +121,11 @@ export default {
     }
   },
   created() {},
-  methods: {},
+  methods: {
+    onChange(val) {
+      console.log('已选中：', val)
+    }
+  },
   components: {}
 }
 </script>
