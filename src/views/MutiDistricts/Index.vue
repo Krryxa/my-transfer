@@ -14,7 +14,7 @@
         ></kr-cascader>
       </el-form-item>
     </el-form>
-    <el-button style="margin: 50px;" @click="getData">获取数据</el-button>
+    <el-button style="margin: 50px;" @click="getData">通过钩子获取已选数据</el-button>
     <router-link to="/mutiTransfer"
       >前往 --> 数据量庞大的分页穿梭框</router-link
     >
