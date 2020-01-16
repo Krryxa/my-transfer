@@ -25,7 +25,7 @@ export default {
   data() {
     return {
       title: '数据量庞大的分页穿梭框',
-      boxTitle: ['渠道', '已选中'],
+      boxTitle: ['供应商', '已选中'],
       data: [],
       selectedData: []
     }
