@@ -10,6 +10,7 @@
           :boxOperation="operation"
           :dataObj="dataObj"
           :selectedData="selectedData"
+          :filterable="true"
           @onChange="onChange"
         ></kr-cascader>
       </el-form-item>

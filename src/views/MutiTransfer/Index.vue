@@ -9,6 +9,7 @@
           :selectedData="selectedData"
           :pageSize="100"
           :boxTitle="boxTitle"
+          :filterable="true"
           @onChange="onChange"
         ></kr-paging>
       </el-form-item>
