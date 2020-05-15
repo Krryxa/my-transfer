@@ -9,6 +9,7 @@
           :selectedData="selectedData"
           :pageSize="100"
           :boxTitle="boxTitle"
+          :pageTexts="['pre', 'next']"
           :filterable="true"
           @onChange="onChange"
         ></kr-paging>
@@ -58,18 +59,6 @@ export default {
           {
             id: 5,
             label: '这是第5条数据'
-          },
-          {
-            id: 6,
-            label: '这是第6条数据'
-          },
-          {
-            id: 8,
-            label: '这是第8条数据'
-          },
-          {
-            id: 9,
-            label: '这是第9条数据'
           }
         ]
       }, 500)
@@ -83,6 +72,54 @@ export default {
     },
     clearQuery(position) {
       this.$refs.paging.clearQueryInp(position)
+    },
+    getPageData(pageIndex, pageSize) {
+      // 异步获取分页数据
+      return new Promise((resolve, reject) => {
+        let resData = []
+        setTimeout(() => {
+          let i = 0
+          if (pageIndex === 1) {
+            i = 6
+            resData.push(
+              {
+                id: 0,
+                label: '这是第0条数据'
+              },
+              {
+                id: 1,
+                label: '这是第1条数据'
+              },
+              {
+                id: 2,
+                label: '这是第2条数据'
+              },
+              {
+                id: 3,
+                label: '这是第3条数据'
+              },
+              {
+                id: 4,
+                label: '这是第4条数据'
+              },
+              {
+                id: 5,
+                label: '这是第5条数据'
+              })
+          }
+          if (pageIndex === 6) {
+            pageSize = 56
+          }
+          for (i ; i < pageSize; i++) {
+            const id = pageIndex + '_' + i
+            resData.push({
+              id: id,
+              label: `异步获取数据 ${id}`
+            })
+          }
+          resolve(resData)
+        }, 100)
+      })
     }
   }
 }
