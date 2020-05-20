@@ -24,6 +24,9 @@
     <el-button style="margin: 50px 20px;" @click="clearQuery('right')"
       >清空右边搜索框</el-button
     >
+    <el-button style="margin: 50px 20px;" @click="clearSelected"
+      >将右侧内容清空</el-button
+    >
     <router-link to="/index">前往 --> 省市级联动多选穿梭框</router-link>
   </main>
 </template>
@@ -110,7 +113,7 @@ export default {
           if (pageIndex === 6) {
             pageSize = 56
           }
-          for (i ; i < pageSize; i++) {
+          for (i; i < pageSize; i++) {
             const id = pageIndex + '_' + i
             resData.push({
               id: id,
@@ -120,6 +123,9 @@ export default {
           resolve(resData)
         }, 100)
       })
+    },
+    clearSelected() {
+      this.selectedData = []
     }
   }
 }
