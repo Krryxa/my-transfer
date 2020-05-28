@@ -11,6 +11,7 @@
           :boxTitle="boxTitle"
           :pageTexts="['pre', 'next']"
           :filterable="true"
+          :isHighlight="true"
           @onChange="onChange"
         ></kr-paging>
       </el-form-item>
