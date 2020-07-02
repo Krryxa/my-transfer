@@ -49,7 +49,7 @@ export default {
     productData() {
       // 模拟异步
       setTimeout(() => {
-        for (let i = 0; i < 2234; i++) {
+        for (let i = 0; i < 150000; i++) {
           this.data.push({
             id: i,
             label: `这是第${i}条数据`
