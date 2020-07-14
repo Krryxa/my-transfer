@@ -12,7 +12,7 @@
           :pageTexts="['pre', 'next']"
           :filterable="true"
           :isHighlight="true"
-          :async="false"
+          :async="true"
           :getSearchData="getSearchData"
           :getPageData="getPageData"
           @onChange="onChange"
@@ -52,22 +52,24 @@ export default {
     productData() {
       // 模拟异步
       setTimeout(() => {
-        for (let i = 0; i < 15000; i++) {
+        for (let i = 0; i < 1500; i++) {
           this.data.push({
             id: i,
             label: `这是第${i}条数据`
           })
         }
-        this.selectedData = [
-          {
-            id: 0,
-            label: '这是第0条数据'
-          },
-          {
-            id: 5,
-            label: '这是第5条数据'
-          }
-        ]
+        setTimeout(() => {
+          this.selectedData = [
+            {
+              id: 0,
+              label: '这是第0条数据'
+            },
+            {
+              id: 5,
+              label: '这是第5条数据'
+            }
+          ]
+        }, 500)
       }, 500)
     },
     onChange(val) {
