@@ -82,8 +82,8 @@ export default {
     clearQuery(position) {
       this.$refs.paging.clearQueryInp(position)
     },
-    getSearchData(keyword) {
-      return new Promise((resolve, reject) => {
+    async getSearchData(keyword) {
+      const resData = await new Promise((resolve, reject) => {
         let resData = [
           {
             id: 0,
@@ -120,10 +120,11 @@ export default {
           resolve(resData)
         }, 200)
       })
+      return resData
     },
-    getPageData(pageIndex, pageSize) {
+    async getPageData(pageIndex, pageSize) {
       // 异步获取分页数据
-      return new Promise((resolve, reject) => {
+      const resData = await new Promise((resolve, reject) => {
         let resData = []
         setTimeout(() => {
           let i = 0
@@ -166,8 +167,9 @@ export default {
             })
           }
           resolve(resData)
-        }, 100)
+        }, 500)
       })
+      return resData
     },
     clearSelected() {
       this.selectedData = []
