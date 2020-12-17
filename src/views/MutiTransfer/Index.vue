@@ -1,6 +1,7 @@
 <template>
   <main class="main">
     <h1>{{ title }}</h1>
+    <h2>异步分页 + 异步搜索</h2>
     <el-form>
       <el-form-item label="渠道：">
         <kr-paging
@@ -19,18 +20,47 @@
         ></kr-paging>
       </el-form-item>
     </el-form>
-    <el-button style="margin: 50px 20px;" @click="getData"
-      >通过钩子获取已选数据</el-button
+    <el-button style="margin: 20px;" @click="getData"
+      >通过钩子获取已选数据（console.log 打印）</el-button
     >
-    <el-button style="margin: 50px 20px;" @click="clearQuery('left')"
+    <el-button style="margin: 20px;" @click="clearQuery('left')"
       >清空左边搜索框</el-button
     >
-    <el-button style="margin: 50px 20px;" @click="clearQuery('right')"
+    <el-button style="margin: 20px;" @click="clearQuery('right')"
       >清空右边搜索框</el-button
     >
-    <el-button style="margin: 50px 20px;" @click="clearSelected"
+    <el-button style="margin-left: 20px;" @click="clearSelected"
       >将右侧内容清空</el-button
     >
+    <br>
+    <h2>单纯分页，没有异步</h2>
+    <el-form>
+      <el-form-item label="渠道：">
+        <kr-paging
+          ref="paging2"
+          :dataList="data"
+          :selectedData="selectedData2"
+          :pageSize="100"
+          :boxTitle="boxTitle"
+          :filterable="true"
+          :isHighlight="true"
+          @onChange="onChange"
+        ></kr-paging>
+      </el-form-item>
+    </el-form>
+    <el-button style="margin: 20px;" @click="getData2"
+      >通过钩子获取已选数据（console.log 打印）</el-button
+    >
+    <el-button style="margin: 20px;" @click="clearQuery2('left')"
+      >清空左边搜索框</el-button
+    >
+    <el-button style="margin: 20px;" @click="clearQuery2('right')"
+      >清空右边搜索框</el-button
+    >
+    <el-button style="margin: 20px;" @click="clearSelected2"
+      >将右侧内容清空</el-button
+    >
+    <br>
     <router-link to="/index">前往 --> 省市级联动多选穿梭框</router-link>
   </main>
 </template>
@@ -42,7 +72,8 @@ export default {
       title: '数据量庞大的分页穿梭框',
       boxTitle: ['供应商', '已选中'],
       data: [],
-      selectedData: []
+      selectedData: [],
+      selectedData2: []
     }
   },
   created() {
@@ -61,12 +92,22 @@ export default {
         setTimeout(() => {
           this.selectedData = [
             {
+              id: '1_0',
+              label: '异步获取数据 1_0'
+            },
+            {
+              id: '1_4',
+              label: '异步获取数据 1_4'
+            }
+          ]
+          this.selectedData2 = [
+            {
               id: 0,
               label: '这是第0条数据'
             },
             {
-              id: 5,
-              label: '这是第5条数据'
+              id: 2,
+              label: '这是第2条数据'
             }
           ]
         }, 500)
@@ -78,45 +119,23 @@ export default {
     getData() {
       const data = this.$refs.paging.getSelectedData()
       console.log('通过钩子获取：', data)
-      this.$refs.paging.getData(1)
+      // 异步获取分页数据的钩子: this.$refs.paging.getData(1)
+    },
+    getData2() {
+      const data = this.$refs.paging2.getSelectedData()
+      console.log('通过钩子获取：', data)
     },
     clearQuery(position) {
       this.$refs.paging.clearQueryInp(position)
+    },
+    clearQuery2(position) {
+      this.$refs.paging2.clearQueryInp(position)
     },
     async getSearchData(keyword, pageIndex, pageSize) {
       const resData = await new Promise((resolve, reject) => {
         let resData = []
         setTimeout(() => {
           let i = 0
-          if (pageIndex === 1) {
-            i = 6
-            resData.push(
-              {
-                id: 0,
-                label: '这是第0条数据'
-              },
-              {
-                id: 1,
-                label: '这是第1条数据'
-              },
-              {
-                id: 2,
-                label: '这是第2条数据'
-              },
-              {
-                id: 3,
-                label: '这是第3条数据'
-              },
-              {
-                id: 4,
-                label: '这是第4条数据'
-              },
-              {
-                id: 5,
-                label: '这是第5条数据'
-              }
-            )
-          }
           if (pageIndex === 4) {
             pageSize = 56
           }
@@ -137,34 +156,6 @@ export default {
         let resData = []
         setTimeout(() => {
           let i = 0
-          if (pageIndex === 1) {
-            i = 6
-            resData.push(
-              {
-                id: 0,
-                label: '这是第0条数据'
-              },
-              {
-                id: 1,
-                label: '这是第1条数据'
-              },
-              {
-                id: 2,
-                label: '这是第2条数据'
-              },
-              {
-                id: 3,
-                label: '这是第3条数据'
-              },
-              {
-                id: 4,
-                label: '这是第4条数据'
-              },
-              {
-                id: 5,
-                label: '这是第5条数据'
-              })
-          }
           if (pageIndex === 6) {
             pageSize = 56
           }
@@ -182,6 +173,9 @@ export default {
     },
     clearSelected() {
       this.selectedData = []
+    },
+    clearSelected2() {
+      this.selectedData2 = []
     }
   }
 }
