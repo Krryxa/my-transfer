@@ -16,6 +16,7 @@
           :async="true"
           :getSearchData="getSearchData"
           :getPageData="getPageData"
+          :showClearBtn="true"
           @onChange="onChange"
         ></kr-paging>
       </el-form-item>
@@ -44,6 +45,7 @@
           :boxTitle="boxTitle"
           :filterable="true"
           :isHighlight="true"
+          :showClearBtn="true"
           @onChange="onChange"
         ></kr-paging>
       </el-form-item>
