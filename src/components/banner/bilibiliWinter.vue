@@ -91,7 +91,7 @@ export default {
     transform: translatex(calc(var(--percentage) * 100px));
   }
   .tree {
-    transform: translatex(calc(var(--percentage) * 100px));
+    transform: translatex(calc(var(--percentage) * 150px - 25px));
     filter: blur(3px);
   }
 
@@ -126,8 +126,8 @@ export default {
   .ball {
     transition: 0.2s all ease-in;
     z-index: 10;
-    opacity: calc(1 - (var(--percentage) - 0.5) / 0.5);
-    transform: translate(64px, 22px) rotate(10deg);
+    opacity: calc(1.5 - (var(--percentage) - 0.5) / 0.5);
+    transform: translate(calc(100px * var(--percentage)), 22px) rotate(calc(10deg * var(--percentage) + 5deg));
   }
 
   .window-cover {
