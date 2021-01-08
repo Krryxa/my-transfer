@@ -98,9 +98,7 @@ export default {
   img,
   video {
     position: absolute;
-    width: 120%;
     height: 100%;
-    object-fit: cover;
   }
   .evening {
     transition: 0.2s all ease-in;
