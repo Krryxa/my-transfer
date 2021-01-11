@@ -44,7 +44,7 @@
 <script>
 export default {
   mounted() {
-    let startingPoint
+    let startingPoint = ''
     const header = document.querySelector('.banner')
 
     header.addEventListener('mouseenter', (e) => {
