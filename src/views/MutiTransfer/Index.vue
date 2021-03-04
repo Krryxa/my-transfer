@@ -45,6 +45,7 @@
           :boxTitle="boxTitle"
           :filterable="true"
           :isHighlight="true"
+          :highlightColor="'#ff502c'"
           :showClearBtn="true"
           @onChange="onChange"
         ></kr-paging>
