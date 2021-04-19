@@ -116,8 +116,9 @@ export default {
         }, 500)
       }, 500)
     },
-    onChange(val) {
+    onChange(val, moveKeys) {
       console.log('已选中：', val)
+      console.log('移动的keys', moveKeys)
     },
     getData() {
       const data = this.$refs.paging.getSelectedData()

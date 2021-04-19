@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "element-ui": "^2.12.0",
-    "krry-transfer": "^1.7.2",
+    "krry-transfer": "^1.7.3",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"
   },
