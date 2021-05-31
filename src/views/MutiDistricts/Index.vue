@@ -69,7 +69,8 @@ export default {
               },
               {
                 id: 101101101111,
-                label: '房山区'
+                label: '房山区',
+                disabled: true
               }
             ],
             '101102': [
@@ -145,7 +146,8 @@ export default {
           },
           {
             id: '101103-101164001112-106197987125',
-            label: '广东省-惠州市-惠城区'
+            label: '广东省-惠州市-惠城区',
+            disabled: true
           },
           {
             id: '101111',

@@ -100,7 +100,8 @@ export default {
             },
             {
               id: '1_4',
-              label: '异步获取数据 1_4'
+              label: '异步获取数据 1_4',
+              disabled: true
             }
           ]
           this.selectedData2 = [
@@ -110,7 +111,8 @@ export default {
             },
             {
               id: 2,
-              label: '这是第2条数据'
+              label: '这是第2条数据',
+              disabled: true
             }
           ]
         }, 500)
@@ -167,7 +169,8 @@ export default {
             const id = pageIndex + '_' + i
             resData.push({
               id: id,
-              label: `异步获取数据 ${id}`
+              label: `异步获取数据 ${id}`,
+              disabled: i === 3
             })
           }
           resolve(resData)
