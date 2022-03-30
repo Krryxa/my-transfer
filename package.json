@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "element-ui": "^2.12.0",
-    "krry-transfer": "^1.7.8",
+    "krry-transfer": "^1.7.9",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"
   },
@@ -57,7 +57,7 @@
     "jest-serializer-vue": "^0.3.0",
     "nightwatch": "^0.9.12",
     "node-notifier": "^5.1.2",
-    "node-sass": "^4.9.0",
+    "node-sass": "^7.0.1",
     "optimize-css-assets-webpack-plugin": "^3.2.0",
     "ora": "^1.2.0",
     "portfinder": "^1.0.13",
